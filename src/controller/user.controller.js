@@ -86,8 +86,8 @@ const Auth = {
         salt,
       });
 
-      const signed = signToken(user._id);
-      return res.status(201).json({ token: signed });
+      //   const signed = signToken(user._id);
+      return res.status(201).json({ message: "Usuario creado con exito" });
     } catch (error) {
       console.error(error);
       return res.status(500).send("Error interno del servidor");
