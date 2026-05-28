@@ -110,4 +110,4 @@ const UserController = {
   },
 };
 
-module.exports = { Auth, UserController };
+module.exports = { Auth, UserController, isAuthenticated };
