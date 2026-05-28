@@ -1,31 +1,49 @@
-const dns = require('dns')
-dns.setServers(['8.8.8.8', '8.8.4.4'])
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
-const express = require('express')
-const mongoose = require('mongoose')
-const app = express()
-const PORT = 8080
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const PORT = 8080;
+const cors = require("cors");
 
-app.use(express.json())
-
-const url = 
-    'mongodb+srv://oscpalma_db_user:soyLaPass123456@cluster0.a60lnid.mongodb.net/actividad_fullstackIII?retryWrites=true&w=majority&appName=Cluster0'
+const url =
+  "mongodb+srv://oscpalma_db_user:soyLaPass123456@cluster0.a60lnid.mongodb.net/actividad_fullstackIII?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose
   .connect(url)
   .then(() => {
-    console.log('Conectado a MongoDB')
-    app.listen(PORT, () => console.log(`App listen at port ${PORT} 💻`))
+    console.log("Conectado a MongoDB");
+    app.listen(PORT, () => console.log(`App listen at port ${PORT} 💻`));
   })
-  .catch((error) => console.error('Error al conectar a MongoDB:', error))
+  .catch((error) => console.error("Error al conectar a MongoDB:", error));
 
-app.get('/', (_req, res) => {
-  res.send('HOLA MUNDO')
-})
+// Middleware
+app.use(express.json());
+app.use(cors());
 
-app.get('/user', (_req, res) => {
-  res.json({ message: 'Ruta user funcionando' })
-})
+// Importar rutas
+const userRoutes = require("./src/routes/user.routes");
+// Rutas
+app.use(`/api/v1/user`, userRoutes);
+
+// Middleware de manejo de errores
+app.use((err, req, res, next) => {
+  // Errores de autenticación de express-jwt
+  if (err.name === "UnauthorizedError") {
+    return res
+      .status(401)
+      .json({ message: "No estás autorizado. Token inválido o ausente." });
+  }
+
+  console.error("Error no controlado:", err);
+  res.status(500).json({ message: "Error interno del servidor" });
+});
+
+// 404
+app.use((req, res) => {
+  res.status(404).json({ message: "Endpoint no encontrado" });
+});
 
 /*
 El problema era que Node.js tiene su propio resolvedor DNS interno que no usa el DNS configurado en Windows.
