@@ -1,9 +1,11 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "description": "FullStack III Actividad",
+  "description": "FullStack III Actividad 3.2",
   "main": "index.js",
   "scripts": {
+    "dev": "node --watch api.js",
+    "start": "node api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
