@@ -6,16 +6,16 @@ API REST desarrollada con Node.js y Express para la asignatura FullStack III (Ac
 
 ## Tecnologías
 
-| Tecnología | Versión | Descripción |
-|---|---|---|
-| Node.js | >= 18.x | Entorno de ejecución JavaScript |
-| Express | ^5.2.1 | Framework web para Node.js |
-| MongoDB Atlas | Cloud | Base de datos NoSQL en la nube |
-| Mongoose | ^9.6.3 | ODM para MongoDB |
-| JSON Web Token | ^9.0.3 | Autenticación basada en tokens |
-| express-jwt | ^8.5.1 | Middleware de validación JWT |
-| bcrypt | ^6.0.0 | Hashing de contraseñas |
-| cors | ^2.8.6 | Habilitación de CORS |
+| Tecnología     | Versión | Descripción                     |
+| -------------- | ------- | ------------------------------- |
+| Node.js        | >= 18.x | Entorno de ejecución JavaScript |
+| Express        | ^5.2.1  | Framework web para Node.js      |
+| MongoDB Atlas  | Cloud   | Base de datos NoSQL en la nube  |
+| Mongoose       | ^9.6.3  | ODM para MongoDB                |
+| JSON Web Token | ^9.0.3  | Autenticación basada en tokens  |
+| express-jwt    | ^8.5.1  | Middleware de validación JWT    |
+| bcrypt         | ^6.0.0  | Hashing de contraseñas          |
+| cors           | ^2.8.6  | Habilitación de CORS            |
 
 ---
 
@@ -85,11 +85,12 @@ Base URL: `http://localhost:8080/api/v1`
 
 ### Autenticación
 
-| Método | Ruta | Descripción | Auth requerida |
-|---|---|---|---|
-| `POST` | `/user/register` | Registrar nuevo usuario | No |
-| `POST` | `/user/login` | Iniciar sesión y obtener token | No |
-| `GET` | `/user/profile/:id` | Obtener perfil por ID | Sí (Bearer Token) |
+| Método | Ruta                | Descripción                    | Auth requerida    |
+| ------ | ------------------- | ------------------------------ | ----------------- |
+| `POST` | `/user/register`    | Registrar nuevo usuario        | No                |
+| `POST` | `/user/login`       | Iniciar sesión y obtener token | No                |
+| `POST` | `/user/logout`      | Cerrar Sesión                  | Sí (Bearer Token) |
+| `GET`  | `/user/profile/:id` | Obtener perfil por ID          | Sí (Bearer Token) |
 
 ### Body para registro (`POST /user/register`)
 
