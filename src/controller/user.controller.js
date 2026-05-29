@@ -8,7 +8,7 @@ const SECRETO = "MI_SECRETO_SEGURO_123456!..@@";
 
 const validateJwt = expressjwt({ secret: SECRETO, algorithms: ["HS256"] });
 
-const signToken = (_id) => jwt.sign({ _id }, SECRETO);
+const signToken = (_id) => jwt.sign({ _id }, SECRETO, { expiresIn: "8h" });
 
 const findAndAssignUser = async (req, res, next) => {
   try {
@@ -64,6 +64,9 @@ const Auth = {
       console.error(error);
       return res.status(500).send("Error interno del servidor");
     }
+  },
+  logout: (_req, res) => {
+    return res.status(200).json({ message: "Sesión cerrada con éxito" });
   },
   register: async (req, res) => {
     const { body } = req;
